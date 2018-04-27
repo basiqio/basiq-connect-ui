@@ -1,10 +1,13 @@
-# Basiq Blink JSClient Example
+# Basiq Connect UI
 
-You can see an example implementation in the index.html file
+## Example
+
+You can see an example implementation in the index.html file and the demo application
+
 
 ## Introduction
 
-This example will explain the basic implementation of Basiq Blink service into your web application
+This example will explain the basic implementation of Basiq Connect UI service into your web application
 using our JS client. The JS client will display a modal window centered in the viewport,
 which will allow the user to connect to their bank account. The focus of the developer is on the
 business logic, not on the implementation details.
@@ -24,7 +27,7 @@ To instantiate the Basiq client object you need to have access_token and user_id
 Create a new Basiq instance:
 
 ```js
-var basiq = new Basiq({
+var ui = new Basiq({
     userId,
     accessToken
 });
@@ -35,7 +38,7 @@ The most common use case will be opening the modal window
 
 ```js
 document.getElementById("connectYourAcc").onclick = function () {
-    basiq.render();
+    ui.render();
 };
 ```
 
@@ -48,25 +51,25 @@ Multiple listeners per event are supported. The basic events you should always r
 Function signature for event callbacks is ```(payload, event)```
 
 ```js
-basiq.addListener("connection", function (payload) {
+ui.addListener("connection", function (payload) {
     console.log("Connection:", payload);
-    basic.destroy();
+    ui.destroy();
 });
 
-basiq.addListener("completion", function () {
-    basic.destroy();
+ui.addListener("completion", function () {
+    ui.destroy();
 });
 
-basiq.addListener("cancellation", function () {
-    basic.hide();
+ui.addListener("cancellation", function () {
+    ui.hide();
 });
 ```
 
 You can also pass in an array of events with the callback.
 
-```
-basiq.addListener(["completion", "cancellation"], function () {
-    basic.destroy();
+```js
+ui.addListener(["completion", "cancellation"], function () {
+    ui.destroy();
 });
 ```
 

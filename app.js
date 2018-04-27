@@ -20,10 +20,10 @@ var Basiq = function (userId, accessToken, domElement) {
         throw new Error("You need to pass the user id and access token to the control");
     }
 
-    this.host = "http://basiq-blink.s3-website-eu-west-1.amazonaws.com/";
+    this.host = "http://js.basiq.io/";
     this.userId = userId;
     this.accessToken = accessToken;
-    this.url = this.host + "?iframe=true&user_id=" + this.userId + "&access_token=" + this.accessToken;
+    this.url = this.host + "index.html?iframe=true&user_id=" + this.userId + "&access_token=" + this.accessToken;
     this.domElement = null;
     this.initialized = false;
     this.rendered = false;
