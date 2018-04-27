@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Basiq JS Control demo</title>
+</head>
+<body>
+    <h1>Basiq control demo</h1>
+    <a href="#" id="connectYourAcc">Connect your account</a>
+</body>
+<script src="/dist/basiq.client.min.js"></script>
+<!--<script src="/app.js"></script>-->
+<script>
+    var accessToken = parseQueryVariables("token"),
+        userId = parseQueryVariables("userId");
+
+    var basic = new Basiq({
+        userId: userId,
+        accessToken: accessToken
+    });
+
+    basic.addListener("handshake", function (data, event) {
+        console.log("Handshake:", data, event)
+    });
+
+    basic.addListener("connection", function (data) {
+        console.log("Connection:", data)
+    });
+
+    basic.addListener(["cancellation"], function () {
+        basic.hide();
+    });
+
+    document.getElementById("connectYourAcc").onclick = function () {
+        basic.render();
+    };
+
+    function parseQueryVariables(name) {
+        var queryString = window.location.search.substring(1),
+            query = {},
+            pairs = queryString.split("&");
+
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].split("=");
+            query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+        }
+
+        if (name) {
+            return query[name];
+        }
+
+        return query;
+    }
+</script>
+</html>
