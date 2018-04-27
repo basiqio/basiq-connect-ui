@@ -7,13 +7,14 @@
  * @param domElement
  * @constructor
  */
-var Basiq = function (userId, accessToken, domElement) {
+var Basiq = function (userId, accessToken, domElement, demo) {
     var self = this;
 
     if (typeof userId === "object") {
         accessToken = userId.accessToken;
-        userId = userId.userId;
         domElement = userId.domElement;
+        demo = userId.demo;
+        userId = userId.userId;
     }
 
     if (!userId && !accessToken) {
@@ -24,12 +25,14 @@ var Basiq = function (userId, accessToken, domElement) {
     this.userId = userId;
     this.accessToken = accessToken;
     this.url = this.host + "index.html?iframe=true&user_id=" + this.userId + "&access_token=" + this.accessToken;
+    if (demo === true) {
+        this.url += "&demo=true";
+    }
     this.domElement = null;
     this.initialized = false;
     this.rendered = false;
 
     this.listeners = {};
-
 
     if (!domElement) {
         try {
