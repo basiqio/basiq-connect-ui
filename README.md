@@ -1,8 +1,10 @@
 # Basiq Blink JSClient Example
 
+You can see an example implementation in the index.html file
+
 ## Introduction
 
-This example will explain the basic implementation of Basic Blink service into your web application
+This example will explain the basic implementation of Basiq Blink service into your web application
 using our JS client. The JS client will display a modal window centered in the viewport,
 which will allow the user to connect to their bank account. The focus of the developer is on the
 business logic, not on the implementation details.
@@ -21,7 +23,7 @@ To instantiate the Basiq client object you need to have access_token and user_id
 
 Create a new Basiq instance:
 
-```
+```js
 var basiq = new Basiq({
     userId,
     accessToken
@@ -31,7 +33,7 @@ var basiq = new Basiq({
 Now you are ready to display the web application. You can do that by invoking the ```render()``` method.
 The most common use case will be opening the modal window
 
-```
+```js
 document.getElementById("connectYourAcc").onclick = function () {
     basiq.render();
 };
