@@ -4,9 +4,8 @@
 
 You can see an example implementation in the index.html file and the demo application
 
-```http://js.basiq.io/demo/index.html?userId=ANY_STRING&token=A_VALID_ACCESS_TOKEN```
+```http://js.basiq.io/demo/index.html```
 
-You need a valid access token to be able to load institutions.
 
 To login to any institution successfully use the following credentials
 
