@@ -17,7 +17,7 @@ var Basiq = function (userId, accessToken, domElement, demo) {
         userId = userId.userId;
     }
 
-    if (!userId && !accessToken) {
+    if (!userId && !accessToken && demo !== true) {
         throw new Error("You need to pass the user id and access token to the control");
     }
 
