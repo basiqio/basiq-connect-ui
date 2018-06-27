@@ -33,7 +33,7 @@ To instantiate the Basiq client object you need to have access_token and user_id
 
 ### Usage
 
-## Connect to bank account
+#### Connect to bank account
 
 Create a new Basiq instance:
 
@@ -53,7 +53,7 @@ document.getElementById("connectYourAcc").onclick = function () {
 };
 ```
 
-## Update login credentials
+#### Update login credentials
 
 Create a new Basiq instance, while providing Basiq's UserID and ConnectionID that you received when initially connecting this user:
 
