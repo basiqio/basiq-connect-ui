@@ -33,6 +33,8 @@ To instantiate the Basiq client object you need to have access_token and user_id
 
 ### Usage
 
+## Connect to bank account
+
 Create a new Basiq instance:
 
 ```js
@@ -50,6 +52,20 @@ document.getElementById("connectYourAcc").onclick = function () {
     ui.render();
 };
 ```
+
+## Update login credentials
+
+Create a new Basiq instance, while providing Basiq's UserID and ConnectionID that you received when initially connecting this user:
+
+```js
+var ui = new Basiq({
+    userId,
+    connectionId,
+    accessToken
+});
+```
+
+After that, invoke the ```render()``` method, as usual.
 
 ### Listening for events
 
@@ -88,7 +104,7 @@ Event | When is it triggered | Callback data
 --- | --- | ---
 ```handshake``` | When a handshake is established | {success: true}
 ```job``` | When a job is created | {success: [bool], data: { id: [string]}}
-```connection``` | When a connection is created | {success: [bool], data: { id: [string]}}
+```connection``` | When a connection is created/updated | {success: [bool], data: { id: [string]}}
 ```cancellation``` | When a user has closed the modal form  | null
 ```completion``` | When a user has completed the process by clicking on "Done" | null
 

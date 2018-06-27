@@ -7,7 +7,7 @@
  * @param domElement
  * @constructor
  */
-var Basiq = function (userId, accessToken, domElement, demo) {
+var Basiq = function (userId, accessToken, domElement, demo, connectionId) {
     var self = this;
 
     if (typeof userId === "object") {
@@ -15,6 +15,7 @@ var Basiq = function (userId, accessToken, domElement, demo) {
         domElement = userId.domElement;
         demo = userId.demo;
         userId = userId.userId;
+        connectionId = userId.connectionId;
     }
 
     if (!userId && !accessToken && demo !== true) {
@@ -24,9 +25,15 @@ var Basiq = function (userId, accessToken, domElement, demo) {
     this.host = "http://js.basiq.io/";
     this.userId = userId;
     this.accessToken = accessToken;
+    if (connectionId) {
+        this.connectionId = connectionId;
+    }
     this.url = this.host + "index.html?iframe=true&user_id=" + this.userId + "&access_token=" + this.accessToken;
     if (demo === true) {
         this.url += "&demo=true";
+    }
+    if (this.connectionId) {
+        this.url += "&connection_id=" + this.connectionId;
     }
     this.domElement = null;
     this.initialized = false;
@@ -69,7 +76,7 @@ var Basiq = function (userId, accessToken, domElement, demo) {
                 if (event === data.event) {
                     cbs.forEach(function (cb) {
                         cb(data.payload, event);
-                    })
+                    });
                 }
             }
         });
