@@ -17,7 +17,7 @@ var Basiq = function(data) {
       try {
         return document.getElementsByTagName("body")[0];
       } catch (e) {
-        throw new Error("No body element found in your document", e);
+        throw new Error("No body element found in your document");
       }
     }
     return document.getElementById(domElementId);
@@ -49,7 +49,7 @@ var Basiq = function(data) {
       messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 
     eventer(messageEvent, function(e) {
-      var data = JSON.parse(e.data);
+      var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
 
       for (var event in self.listeners) {
         if (!self.listeners.hasOwnProperty(event)) {
