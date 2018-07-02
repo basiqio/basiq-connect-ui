@@ -9,7 +9,7 @@ var Basiq = function(data) {
     throw new Error("You need to pass the user id and access token to the control");
   }
   function initializeDomElement(domElementId) {
-    if (!domElement) {
+    if (!domElementId) {
       try {
         return document.getElementsByTagName("body")[0];
       } catch (e) {
