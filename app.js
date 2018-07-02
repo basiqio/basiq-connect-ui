@@ -1,5 +1,9 @@
 /**
  * Object constructor. Requires an object, which should contain keys userId and accessToken.
+ * Optional object keys include domElementId and connectionId
+ *
+ * If domElementId is provided, control will try to attach to DOM element with that ID. Otherwise, it will attach itself to body.
+ * If connectionId is provided, a login form will be prompted. Use this to update the login details for an existing connection - for example, when login password changes.
  *
  * @param user
  * @constructor
