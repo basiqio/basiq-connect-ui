@@ -1,56 +1,64 @@
+
+
 <html>
+
+
 <head>
-    <title>Basiq JS Control demo</title>
+  <title>Basiq JS Control demo</title>
 </head>
+
 <body>
-    <h1>Basiq control demo</h1>
-    <a href="#" id="connectYourAcc">Connect your account</a>
+  <h1>Basiq control demo</h1>
+  <a href="#" id="connectYourAcc">Connect your account</a>
+  <script src="http://js.basiq.io/v1/basiq.client.min.js" />
+
+  <!-- <script src="/app.js"></script> -->
+
+  <script>
+    var accessToken = parseQueryVariables("token"),
+      userId = parseQueryVariables("userId"),
+      connectionId = parseQueryVariables("connectionId");
+
+    var ui = new Basiq({
+      userId: userId,
+      accessToken: accessToken,
+      demo: true,
+      connectionId: connectionId
+    });
+
+    ui.addListener("handshake", function(data, event) {
+      console.log("Handshake:", data, event);
+    });
+
+    ui.addListener("connection", function(data) {
+      console.log("Connection:", data);
+    });
+
+    ui.addListener(["cancellation"], function() {
+      ui.hide();
+    });
+
+    document.getElementById("connectYourAcc").onclick = function() {
+      ui.render();
+    };
+
+    function parseQueryVariables(name) {
+      var queryString = window.location.search.substring(1),
+        query = {},
+        pairs = queryString.split("&");
+
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split("=");
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+      }
+
+      if (name) {
+        return query[name];
+      }
+
+      return query;
+    }
+
+  </script>
 </body>
-<script src="http://js.basiq.io/v1/basiq.client.min.js"></script>
-<!--<script src="/app.js"></script>-->
-<script>
- var accessToken = parseQueryVariables("token"),
-     userId = parseQueryVariables("userId"),
-     connectionId = parseQueryVariables("connectionId");
-
- var ui = new Basiq({
-     userId: userId,
-     accessToken: accessToken,
-     demo: true,
-     connectionId: connectionId
- });
-
- ui.addListener("handshake", function (data, event) {
-     console.log("Handshake:", data, event)
- });
-
- ui.addListener("connection", function (data) {
-     console.log("Connection:", data)
- });
-
- ui.addListener(["cancellation"], function () {
-     ui.hide();
- });
-
- document.getElementById("connectYourAcc").onclick = function () {
-     ui.render();
- };
-
- function parseQueryVariables(name) {
-     var queryString = window.location.search.substring(1),
-         query = {},
-         pairs = queryString.split("&");
-
-     for (var i = 0; i < pairs.length; i++) {
-         var pair = pairs[i].split("=");
-         query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-     }
-
-     if (name) {
-         return query[name];
-     }
-
-     return query;
- }
-</script>
 </html>
