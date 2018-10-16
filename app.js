@@ -23,7 +23,7 @@ var Basiq = function(data) {
     return document.getElementById(domElementId);
   }
 
-  var url = "http://js.basiq.io/index.html?iframe=true&user_id=" + data.userId + "&access_token=" + data.accessToken;
+  var url = "//js.basiq.io/index.html?iframe=true&user_id=" + data.userId + "&access_token=" + data.accessToken;
   if (data.demo === true) {
     url += "&demo=true";
   }

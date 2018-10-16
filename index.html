@@ -1,5 +1,3 @@
-
-
 <html>
 
 
@@ -10,7 +8,7 @@
 <body>
   <h1>Basiq control demo</h1>
   <a href="#" id="connectYourAcc">Connect your account</a>
-  <script src="http://js.basiq.io/v1/basiq.client.min.js" />
+  <script src="//js.basiq.io/v1/basiq.client.min.js" />
 
   <!-- <script src="/app.js"></script> -->
 
@@ -26,19 +24,19 @@
       connectionId: connectionId
     });
 
-    ui.addListener("handshake", function(data, event) {
+    ui.addListener("handshake", function (data, event) {
       console.log("Handshake:", data, event);
     });
 
-    ui.addListener("connection", function(data) {
+    ui.addListener("connection", function (data) {
       console.log("Connection:", data);
     });
 
-    ui.addListener(["cancellation"], function() {
+    ui.addListener(["cancellation"], function () {
       ui.hide();
     });
 
-    document.getElementById("connectYourAcc").onclick = function() {
+    document.getElementById("connectYourAcc").onclick = function () {
       ui.render();
     };
 
@@ -61,4 +59,5 @@
 
   </script>
 </body>
+
 </html>
