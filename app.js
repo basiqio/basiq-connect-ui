@@ -9,7 +9,7 @@
  * @constructor
  */
 var Basiq = function(data) {
-  if (!data.userId && !data.accessToken && data.demo !== true) {
+  if (!data.demo && (!data.userId || !data.accessToken)) {
     throw new Error("You need to pass the user id and access token to the control");
   }
   function initializeDomElement(domElementId) {
@@ -23,13 +23,14 @@ var Basiq = function(data) {
     return document.getElementById(domElementId);
   }
 
-  var url = "//js.basiq.io/index.html?iframe=true&user_id=" + data.userId + "&access_token=" + data.accessToken;
-  if (data.demo === true) {
-    url += "&demo=true";
-  }
-  if (data.connectionId) {
-    url += "&connection_id=" + data.connectionId;
-  }
+  var params = ["iframe=true", "user_id=" + data.userId, "access_token=" + data.accessToken];
+  if (data.demo === true) {	params.push("demo=true"); }
+  if (data.connectionId) { params.push("connection_id=" + data.connectionId); }
+
+  var page = data.pdfUpload ? "index2.html" : "index.html";
+  var host = "//js.basiq.io/";
+  // var host = "http://localhost:9080/";
+  var url = host +  page + "?" + params.join("&")
 
   var self = this;
   self.domElement = initializeDomElement(data.domElementId);

@@ -8,20 +8,22 @@
 <body>
   <h1>Basiq control demo</h1>
   <a href="#" id="connectYourAcc">Connect your account</a>
-  <script src="//js.basiq.io/v1/basiq.client.min.js" />
-
-  <!-- <script src="/app.js"></script> -->
+  <!-- <script src="//js.basiq.io/v1/basiq.client.min.js" /> -->
+  <script src="/app.js"></script>
 
   <script>
-    var accessToken = parseQueryVariables("token"),
-      userId = parseQueryVariables("userId"),
-      connectionId = parseQueryVariables("connectionId");
+    var userId = parseQueryVariables("userId"),
+      accessToken = parseQueryVariables("token"),
+      demo = parseQueryVariables("demo"),
+      connectionId = parseQueryVariables("connectionId"),
+      pdfUpload = parseQueryVariables("pdfUpload");
 
     var ui = new Basiq({
       userId: userId,
       accessToken: accessToken,
-      demo: true,
-      connectionId: connectionId
+      demo: !!demo && demo === "true",
+      connectionId: connectionId,
+      pdfUpload: !!pdfUpload && pdfUpload === "true"
     });
 
     ui.addListener("handshake", function (data, event) {
