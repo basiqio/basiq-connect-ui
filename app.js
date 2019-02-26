@@ -5,7 +5,13 @@
  * If domElementId is provided, control will try to attach to DOM element with that ID. Otherwise, it will attach itself to body.
  * If connectionId is provided, a login form will be prompted. Use this to update the login details for an existing connection - for example, when login password changes.
  *
- * @param user
+ * @param demo          true if demo features are enabled
+ * @param domElementId  ID of DOM element to attach
+ * @param userId        user ID (required)
+ * @param accessToken   basiq API access token (required)
+ * @param connectionId  connection ID
+ * @param blinkHost     host of basiq blink (defaults to "//js.basiq.io")
+ * @param pdfUpload     pdf upload feature flag
  * @constructor
  */
 var Basiq = function(data) {
@@ -27,9 +33,8 @@ var Basiq = function(data) {
   if (data.demo === true) {	params.push("demo=true"); }
   if (data.connectionId) { params.push("connection_id=" + data.connectionId); }
 
+  var host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
   var page = data.pdfUpload ? "index2.html" : "index.html";
-  var host = "//js.basiq.io/";
-  // var host = "http://localhost:9080/";
   var url = host +  page + "?" + params.join("&")
 
   var self = this;
