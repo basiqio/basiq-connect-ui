@@ -5,6 +5,7 @@ phases:
     commands:
       - pip install --upgrade --user awscli
       - npm install
+      - chmod +x ./build/read-environment.sh
       - npm run build
   build:
     commands:
