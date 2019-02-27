@@ -5,9 +5,8 @@ phases:
     commands:
       - pip install --upgrade --user awscli
       - npm install
-      - chmod u+x ./build/read-env.sh && sh build/read-env.sh
       - npm run build
   build:
     commands:
-      - export BasiqBlinkBucketName=`node build/readBuildConf.js`
-      - aws s3 sync dist s3://$BasiqBlinkBucketName/v1 --acl public-read
+      - export Bucket=`aws cloudformation list-exports --output text --query "Exports[?(Name=='basiq-blink-s3-bucket')].Value"`
+      - aws s3 sync dist s3://$Bucket/v1 --acl public-read

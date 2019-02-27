@@ -1,66 +1,70 @@
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+    <title>Basiq JS Control demo</title>
+    <script type="text/javascript" src="/dist/basiq.client.min.js"></script>
+  </head>
 
+  <body>
+    <h1>Basiq control demo</h1>
+    <a href="#" id="connectYourAcc">Connect your account</a>
 
-<head>
-  <title>Basiq JS Control demo</title>
-</head>
+    <script type="text/javascript">
+      var userId = parseQueryVariables("userId"),
+        accessToken = parseQueryVariables("accessToken"),
+        demo = parseQueryVariables("demo"),
+        connectionId = parseQueryVariables("connectionId"),
+        pdfUpload = parseQueryVariables("pdfUpload");
 
-<body>
-  <h1>Basiq control demo</h1>
-  <a href="#" id="connectYourAcc">Connect your account</a>
-  <!-- <script src="//js.basiq.io/v1/basiq.client.min.js" /> -->
-  <script src="/app.js"></script>
+      // TODO Parametrize blink host
+      var blinkHost =
+        "https://s3-ap-southeast-2.amazonaws.com/aws-messaging-infrastructure-basiqblinks3-jh7k9h1moz2j/";
 
-  <script>
-    var userId = parseQueryVariables("userId"),
-      accessToken = parseQueryVariables("token"),
-      demo = parseQueryVariables("demo"),
-      connectionId = parseQueryVariables("connectionId"),
-      pdfUpload = parseQueryVariables("pdfUpload");
+      var ui = new Basiq({
+        blinkHost: blinkHost,
+        userId: userId,
+        accessToken: accessToken,
+        demo: !!demo && demo === "true",
+        connectionId: connectionId,
+        pdfUpload: !!pdfUpload && pdfUpload === "true"
+      });
 
-    var ui = new Basiq({
-      blinkHost: "//js.basiq.io",
-      userId: userId,
-      accessToken: accessToken,
-      demo: !!demo && demo === "true",
-      connectionId: connectionId,
-      pdfUpload: !!pdfUpload && pdfUpload === "true"
-    });
+      ui.addListener("handshake", function(data, event) {
+        console.log("Handshake:", data, event);
+      });
 
-    ui.addListener("handshake", function (data, event) {
-      console.log("Handshake:", data, event);
-    });
+      ui.addListener("connection", function(data) {
+        console.log("Connection:", data);
+      });
 
-    ui.addListener("connection", function (data) {
-      console.log("Connection:", data);
-    });
+      ui.addListener(["cancellation"], function() {
+        ui.hide();
+      });
 
-    ui.addListener(["cancellation"], function () {
-      ui.hide();
-    });
+      document.getElementById("connectYourAcc").onclick = function() {
+        ui.render();
+      };
 
-    document.getElementById("connectYourAcc").onclick = function () {
-      ui.render();
-    };
+      function parseQueryVariables(name) {
+        var queryString = window.location.search.substring(1),
+          query = {},
+          pairs = queryString.split("&");
 
-    function parseQueryVariables(name) {
-      var queryString = window.location.search.substring(1),
-        query = {},
-        pairs = queryString.split("&");
+        for (var i = 0; i < pairs.length; i++) {
+          var pair = pairs[i].split("=");
+          query[decodeURIComponent(pair[0])] = decodeURIComponent(
+            pair[1] || ""
+          );
+        }
 
-      for (var i = 0; i < pairs.length; i++) {
-        var pair = pairs[i].split("=");
-        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+        if (name) {
+          return query[name];
+        }
+
+        return query;
       }
-
-      if (name) {
-        return query[name];
-      }
-
-      return query;
-    }
-
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
