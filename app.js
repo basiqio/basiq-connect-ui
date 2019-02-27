@@ -16,7 +16,9 @@
  */
 var Basiq = function(data) {
   if (!data.demo && (!data.userId || !data.accessToken)) {
-    throw new Error("You need to pass the user id and access token to the control");
+    throw new Error(
+      "You need to pass the user id and access token to the control"
+    );
   }
   function initializeDomElement(domElementId) {
     if (!domElementId) {
@@ -29,13 +31,21 @@ var Basiq = function(data) {
     return document.getElementById(domElementId);
   }
 
-  var params = ["iframe=true", "user_id=" + data.userId, "access_token=" + data.accessToken];
-  if (data.demo === true) {	params.push("demo=true"); }
-  if (data.connectionId) { params.push("connection_id=" + data.connectionId); }
+  var params = [
+    "iframe=true",
+    "user_id=" + data.userId,
+    "access_token=" + data.accessToken
+  ];
+  if (data.demo === true) {
+    params.push("demo=true");
+  }
+  if (data.connectionId) {
+    params.push("connection_id=" + data.connectionId);
+  }
 
   var host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
   var page = data.pdfUpload ? "index2.html" : "index.html";
-  var url = host +  page + "?" + params.join("&")
+  var url = host + page + "?" + params.join("&");
 
   var self = this;
   self.domElement = initializeDomElement(data.domElementId);
@@ -45,12 +55,14 @@ var Basiq = function(data) {
   this.initialized = false;
 
   /**
-     * Initialises postMessage listener
-     *
-     * @returns {Basiq}
-     */
+   * Initialises postMessage listener
+   *
+   * @returns {Basiq}
+   */
   var init = function() {
-    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+    var eventMethod = window.addEventListener
+        ? "addEventListener"
+        : "attachEvent",
       eventer = window[eventMethod],
       messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 
@@ -78,12 +90,12 @@ var Basiq = function(data) {
   init();
 
   /**
-     * Attaches a listener to an event emitted by the frame
-     *
-     * @param events Array
-     * @param cb Function
-     * @returns {Basiq}
-     */
+   * Attaches a listener to an event emitted by the frame
+   *
+   * @param events Array
+   * @param cb Function
+   * @returns {Basiq}
+   */
   this.addListener = function(events, cb) {
     if (typeof cb !== "function") {
       throw new Error("Passed callback must be a function");
@@ -109,10 +121,10 @@ var Basiq = function(data) {
   };
 
   /**
-     * Shows the control
-     *
-     * @returns {Basiq}
-     */
+   * Shows the control
+   *
+   * @returns {Basiq}
+   */
   this.show = function() {
     if (!self.rendered) {
       throw new Error("Component has not been rendered");
@@ -124,10 +136,10 @@ var Basiq = function(data) {
   };
 
   /**
-     * Hides the control
-     *
-     * @returns {Basiq}
-     */
+   * Hides the control
+   *
+   * @returns {Basiq}
+   */
   this.hide = function() {
     if (!self.rendered) {
       throw new Error("Component has not been rendered");
@@ -139,9 +151,9 @@ var Basiq = function(data) {
   };
 
   /**
-     * Destroys the control
-     * @returns {Basiq}
-     */
+   * Destroys the control
+   * @returns {Basiq}
+   */
   this.destroy = function() {
     if (!self.rendered || !self.initialized) {
       throw new Error("Component has not been rendered");
@@ -158,11 +170,11 @@ var Basiq = function(data) {
   };
 
   /**
-     * Renders the control by attaching the backdrop div to the
-     * given dom element
-     *
-     * @returns {Basiq}
-     */
+   * Renders the control by attaching the backdrop div to the
+   * given dom element
+   *
+   * @returns {Basiq}
+   */
   this.render = function() {
     if (self.rendered === true) {
       self.show();

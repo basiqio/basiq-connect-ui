@@ -4,7 +4,8 @@
   "description": "Basiq drop in control for js clients",
   "main": "app.js",
   "scripts": {
-    "build": "webpack",
+    "build": "./build/read-environment.sh > config.json && webpack",
+    "deploy": "build/deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Basiq.io",
