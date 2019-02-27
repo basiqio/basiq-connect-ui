@@ -17,10 +17,7 @@
         demo = parseQueryVariables("demo"),
         connectionId = parseQueryVariables("connectionId"),
         pdfUpload = parseQueryVariables("pdfUpload");
-
-      // TODO Parametrize blink host
-      var blinkHost =
-        "https://s3-ap-southeast-2.amazonaws.com/aws-messaging-infrastructure-basiqblinks3-jh7k9h1moz2j/";
+        blinkHost = parseQueryVariables("blinkHost");
 
       var ui = new Basiq({
         blinkHost: blinkHost,
