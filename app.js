@@ -67,20 +67,24 @@ var Basiq = function(data) {
       messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 
     eventer(messageEvent, function(e) {
-      var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+      try{
+        var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
 
-      for (var event in self.listeners) {
-        if (!self.listeners.hasOwnProperty(event)) {
-          continue;
-        }
-        var cbs = self.listeners[event];
+        for (var event in self.listeners) {
+          if (!self.listeners.hasOwnProperty(event)) {
+            continue;
+          }
+          var cbs = self.listeners[event];
 
-        if (event === data.event) {
-          cbs.forEach(function(cb) {
-            cb(data.payload, event);
-          });
+          if (event === data.event) {
+            cbs.forEach(function(cb) {
+              cb(data.payload, event);
+            });
+          }
         }
-      }
+     }catch(error){
+       return 
+     }
     });
 
     self.initialized = true;
