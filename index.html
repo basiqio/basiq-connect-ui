@@ -25,7 +25,7 @@
         accessToken: accessToken,
         demo: !!demo && demo === "true",
         connectionId: connectionId,
-	statements: statements && statements !== "false"
+	statements: statements !== "false"
       });
 
       ui.addListener("handshake", function(data, event) {
