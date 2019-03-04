@@ -16,7 +16,7 @@
         accessToken = parseQueryVariables("accessToken"),
         demo = parseQueryVariables("demo"),
         connectionId = parseQueryVariables("connectionId"),
-        pdfUpload = parseQueryVariables("pdfUpload");
+        statements = parseQueryVariables("statements");
         blinkHost = parseQueryVariables("blinkHost");
 
       var ui = new Basiq({
@@ -25,7 +25,7 @@
         accessToken: accessToken,
         demo: !!demo && demo === "true",
         connectionId: connectionId,
-        pdfUpload: !!pdfUpload && pdfUpload === "true"
+	statements: statements && statements !== "false"
       });
 
       ui.addListener("handshake", function(data, event) {

@@ -44,7 +44,7 @@ var Basiq = function(data) {
   }
 
   var host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
-  var page = data.pdfUpload ? "index2.html" : "index.html";
+  var page = data.statements ? "index2.html" : "index.html";
   var url = host + page + "?" + params.join("&");
 
   var self = this;
