@@ -42,6 +42,9 @@ var Basiq = function(data) {
   if (data.connectionId) {
     params.push("connection_id=" + data.connectionId);
   }
+  if (data.ignoreParsing) {
+    params.push("ignore_parsing=true");
+  }
 
   var host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
   var page = data.statements === true ? "index2.html" : "index.html";
