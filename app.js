@@ -14,7 +14,7 @@
  * @param pdfUpload     pdf upload feature flag
  * @constructor
  */
-var Basiq = function(data) {
+var Basiq = function (data) {
   if (!data.demo && (!data.userId || !data.accessToken)) {
     throw new Error(
       "You need to pass the user id and access token to the control"
@@ -45,6 +45,12 @@ var Basiq = function(data) {
   if (data.ignoreParsing) {
     params.push("ignore_parsing=true");
   }
+  if (data.connect) {
+    params.push("connect=true");
+  }
+  if (data.upload) {
+    params.push("upload=true");
+  }
 
   var host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
   var page = data.statements === true ? "index2.html" : "index.html";
@@ -62,15 +68,15 @@ var Basiq = function(data) {
    *
    * @returns {Basiq}
    */
-  var init = function() {
+  var init = function () {
     var eventMethod = window.addEventListener
-        ? "addEventListener"
-        : "attachEvent",
+      ? "addEventListener"
+      : "attachEvent",
       eventer = window[eventMethod],
       messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 
-    eventer(messageEvent, function(e) {
-      try{
+    eventer(messageEvent, function (e) {
+      try {
         var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
 
         for (var event in self.listeners) {
@@ -80,14 +86,14 @@ var Basiq = function(data) {
           var cbs = self.listeners[event];
 
           if (event === data.event) {
-            cbs.forEach(function(cb) {
+            cbs.forEach(function (cb) {
               cb(data.payload, event);
             });
           }
         }
-     }catch(error){
-       return 
-     }
+      } catch (error) {
+        return
+      }
     });
 
     self.initialized = true;
@@ -103,7 +109,7 @@ var Basiq = function(data) {
    * @param cb Function
    * @returns {Basiq}
    */
-  this.addListener = function(events, cb) {
+  this.addListener = function (events, cb) {
     if (typeof cb !== "function") {
       throw new Error("Passed callback must be a function");
     }
@@ -112,14 +118,14 @@ var Basiq = function(data) {
       events = [events];
     }
 
-    events.forEach(function(event) {
+    events.forEach(function (event) {
       self.registerHandler(event, cb);
     });
 
     return self;
   };
 
-  this.registerHandler = function(event, cb) {
+  this.registerHandler = function (event, cb) {
     if (!self.listeners[event]) {
       self.listeners[event] = [];
     }
@@ -132,7 +138,7 @@ var Basiq = function(data) {
    *
    * @returns {Basiq}
    */
-  this.show = function() {
+  this.show = function () {
     if (!self.rendered) {
       throw new Error("Component has not been rendered");
     }
@@ -147,7 +153,7 @@ var Basiq = function(data) {
    *
    * @returns {Basiq}
    */
-  this.hide = function() {
+  this.hide = function () {
     if (!self.rendered) {
       throw new Error("Component has not been rendered");
     }
@@ -161,7 +167,7 @@ var Basiq = function(data) {
    * Destroys the control
    * @returns {Basiq}
    */
-  this.destroy = function() {
+  this.destroy = function () {
     if (!self.rendered || !self.initialized) {
       throw new Error("Component has not been rendered");
     }
@@ -182,7 +188,7 @@ var Basiq = function(data) {
    *
    * @returns {Basiq}
    */
-  this.render = function() {
+  this.render = function () {
     if (self.rendered === true) {
       self.show();
 
@@ -214,7 +220,7 @@ var Basiq = function(data) {
     self.rendered = true;
     self.initialized = true;
 
-    self.addListener(["cancellation", "completion"], function() {
+    self.addListener(["cancellation", "completion"], function () {
       self.destroy();
     });
 
