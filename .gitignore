@@ -1,6 +1,5 @@
 node_modules/
 .idea/
-demo.html
 dist/
 build/build-conf.json
 config.json

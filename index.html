@@ -14,7 +14,6 @@
     <script type="text/javascript">
       var userId = parseQueryVariables("userId"),
         accessToken = parseQueryVariables("accessToken"),
-        demo = parseQueryVariables("demo"),
         connectionId = parseQueryVariables("connectionId"),
         statements = parseQueryVariables("statements");
         blinkHost = parseQueryVariables("blinkHost");
@@ -23,7 +22,6 @@
         blinkHost: blinkHost,
         userId: userId,
         accessToken: accessToken,
-        demo: !!demo && demo === "true",
         connectionId: connectionId,
 	statements: statements !== "false"
       });

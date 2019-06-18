@@ -5,7 +5,6 @@
  * If domElementId is provided, control will try to attach to DOM element with that ID. Otherwise, it will attach itself to body.
  * If connectionId is provided, a login form will be prompted. Use this to update the login details for an existing connection - for example, when login password changes.
  *
- * @param demo          true if demo features are enabled
  * @param domElementId  ID of DOM element to attach
  * @param userId        user ID (required)
  * @param accessToken   basiq API access token (required)
@@ -15,7 +14,7 @@
  * @constructor
  */
 var Basiq = function (data) {
-  if (!data.demo && (!data.userId || !data.accessToken)) {
+  if (!data.userId || !data.accessToken) {
     throw new Error(
       "You need to pass the user id and access token to the control"
     );
@@ -36,9 +35,6 @@ var Basiq = function (data) {
     "user_id=" + data.userId,
     "access_token=" + data.accessToken
   ];
-  if (data.demo === true) {
-    params.push("demo=true");
-  }
   if (data.connectionId) {
     params.push("connection_id=" + data.connectionId);
   }
