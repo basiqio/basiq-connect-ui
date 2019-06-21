@@ -25,22 +25,26 @@
         accessToken: accessToken,
         demo: !!demo && demo === "true",
         connectionId: connectionId,
-	statements: statements !== "false"
-      });
-
-      ui.addListener("handshake", function(data, event) {
-        console.log("Handshake:", data, event);
-      });
-
-      ui.addListener("connection", function(data) {
-        console.log("Connection:", data);
-      });
-
-      ui.addListener(["cancellation"], function() {
-        ui.hide();
+        statements: statements !== "false"
       });
 
       document.getElementById("connectYourAcc").onclick = function() {
+        ui.addListener("handshake", function(data, event) {
+          console.log("Handshake:", data, event);
+        });
+
+        ui.addListener("connection", function(data) {
+          console.log("Connection:", data);
+        });
+
+        ui.addListener("job", function(data) {
+          console.log("Job:", data);
+        });
+
+        ui.addListener(["cancellation"], function() {
+          ui.hide();
+        });
+
         ui.render();
       };
 
