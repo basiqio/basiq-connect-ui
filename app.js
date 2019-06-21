@@ -204,7 +204,7 @@ var Basiq = function (data) {
     self.backdrop.style =
       "position: fixed; top: 0; left: 0; width: 100%; height: 100%; min-height: 450px; min-width: 307px; z-index: 100; background: rgba(0, 0, 0, 0.4);";
     self.container.style =
-      "position: fixed; top: 50%; left: 50%; margin-left: -153px; margin-top: -225px; width: 307px; height: 450px; border-radius: 15px; z-index: 101; -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);";
+      "position: absolute; top: 50%; left: 50%; margin-left: -153px; margin-top: -225px; width: 307px; height: 450px; border-radius: 15px; z-index: 101; -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);";
 
     iframe.src = self.url;
     iframe.id = "basiq-modal-frame";
