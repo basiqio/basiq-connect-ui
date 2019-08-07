@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <meta content="utf-8" http-equiv="encoding" />
-    <title>Basiq JS Control demo</title>
-    <script type="text/javascript" src="dist/basiq.client.min.js"></script>
-  </head>
 
-  <body>
-    <h1>Basiq control demo</h1>
-    <a href="#" id="connectYourAcc">Connect your account</a>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <meta content="utf-8" http-equiv="encoding" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <title>Basiq JS Control demo</title>
+  <script type="text/javascript" src="dist/basiq.client.min.js"></script>
+</head>
 
-    <script type="text/javascript">
-      var userId = parseQueryVariables("userId"),
-        accessToken = parseQueryVariables("accessToken"),
-        demo = parseQueryVariables("demo"),
-        connectionId = parseQueryVariables("connectionId"),
-        statements = parseQueryVariables("statements");
-        blinkHost = parseQueryVariables("blinkHost");
+<body>
+  <h1>Basiq control demo</h1>
+  <a href="#" id="connectYourAcc">Connect your account</a>
 
-      var ui = new Basiq({
-        blinkHost: blinkHost,
-        userId: userId,
-        accessToken: accessToken,
-        demo: !!demo && demo === "true",
-        connectionId: connectionId,
-	statements: statements !== "false"
-      });
+  <script type="text/javascript">
+    let userId = parseQueryVariables("userId"),
+      accessToken = parseQueryVariables("accessToken"),
+      demo = parseQueryVariables("demo"),
+      connectionId = parseQueryVariables("connectionId"),
+      statements = parseQueryVariables("statements");
+    blinkHost = parseQueryVariables("blinkHost");
 
-      ui.addListener("handshake", function(data, event) {
-        console.log("Handshake:", data, event);
-      });
+    let ui = new Basiq({
+      blinkHost: blinkHost,
+      userId: userId,
+      accessToken: accessToken,
+      demo: !!demo && demo === "true",
+      connectionId: connectionId,
+      statements: statements !== "false"
+    });
 
-      ui.addListener("connection", function(data) {
-        console.log("Connection:", data);
-      });
+    ui.addListener("handshake", function (data, event) {
+      console.log("Handshake:", data, event);
+    });
 
-      ui.addListener(["cancellation"], function() {
-        ui.hide();
-      });
+    ui.addListener("connection", function (data) {
+      console.log("Connection:", data);
+    });
 
-      document.getElementById("connectYourAcc").onclick = function() {
-        ui.render();
-      };
+    ui.addListener(["cancellation"], function () {
+      ui.hide();
+    });
 
-      function parseQueryVariables(name) {
-        var queryString = window.location.search.substring(1),
-          query = {},
-          pairs = queryString.split("&");
+    document.getElementById("connectYourAcc").onclick = function () {
+      ui.render();
+    };
 
-        for (var i = 0; i < pairs.length; i++) {
-          var pair = pairs[i].split("=");
-          query[decodeURIComponent(pair[0])] = decodeURIComponent(
-            pair[1] || ""
-          );
-        }
+    function parseQueryVariables(name) {
+      let queryString = window.location.search.substring(1),
+        query = {},
+        pairs = queryString.split("&");
 
-        if (name) {
-          return query[name];
-        }
-
-        return query;
+      for (let i = 0; i < pairs.length; i++) {
+        let pair = pairs[i].split("=");
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(
+          pair[1] || ""
+        );
       }
-    </script>
-  </body>
+
+      if (name) {
+        return query[name];
+      }
+
+      return query;
+    }
+  </script>
+</body>
+
 </html>
