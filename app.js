@@ -14,12 +14,13 @@
  * @param pdfUpload     pdf upload feature flag
  * @constructor
  */
-var Basiq = function (data) {
+let Basiq = function (data) {
   if (!data.demo && (!data.userId || !data.accessToken)) {
     throw new Error(
       "You need to pass the user id and access token to the control"
     );
   }
+
   function initializeDomElement(domElementId) {
     if (!domElementId) {
       try {
@@ -31,7 +32,7 @@ var Basiq = function (data) {
     return document.getElementById(domElementId);
   }
 
-  var params = [
+  let params = [
     "iframe=true",
     "user_id=" + data.userId,
     "access_token=" + data.accessToken
@@ -52,11 +53,11 @@ var Basiq = function (data) {
     params.push("upload=true");
   }
 
-  var host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
-  var page = data.statements === true ? "index2.html" : "index.html";
-  var url = host + page + "?" + params.join("&");
+  let host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
+  let page = data.statements === true ? "index2.html" : "index.html";
+  let url = host + page + "?" + params.join("&");
 
-  var self = this;
+  let self = this;
   self.domElement = initializeDomElement(data.domElementId);
   this.url = url;
   this.rendered = false;
@@ -68,22 +69,20 @@ var Basiq = function (data) {
    *
    * @returns {Basiq}
    */
-  var init = function () {
-    var eventMethod = window.addEventListener
-      ? "addEventListener"
-      : "attachEvent",
+  let init = function () {
+    let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
       eventer = window[eventMethod],
       messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 
     eventer(messageEvent, function (e) {
       try {
-        var data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+        let data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
 
-        for (var event in self.listeners) {
+        for (let event in self.listeners) {
           if (!self.listeners.hasOwnProperty(event)) {
             continue;
           }
-          var cbs = self.listeners[event];
+          let cbs = self.listeners[event];
 
           if (event === data.event) {
             cbs.forEach(function (cb) {
@@ -92,7 +91,7 @@ var Basiq = function (data) {
           }
         }
       } catch (error) {
-        return
+        return;
       }
     });
 
@@ -143,7 +142,7 @@ var Basiq = function (data) {
       throw new Error("Component has not been rendered");
     }
 
-    self.backdrop.style.visibility = "visible";
+    self.backdrop.style.cssText = "visibility: visible";
 
     return self;
   };
@@ -158,7 +157,7 @@ var Basiq = function (data) {
       throw new Error("Component has not been rendered");
     }
 
-    self.backdrop.style.visibility = "hidden";
+    self.backdrop.style.cssText = "visibility: hidden";
 
     return self;
   };
@@ -195,21 +194,19 @@ var Basiq = function (data) {
       return self;
     }
 
-    var backdrop = document.createElement("div"),
+    let backdrop = document.createElement("div"),
       container = document.createElement("div"),
       iframe = document.createElement("iframe");
 
     self.backdrop = backdrop;
     self.container = container;
-    self.backdrop.style =
-      "position: fixed; top: 0; left: 0; width: 100%; height: 100%; min-height: 450px; min-width: 307px; z-index: 100; background: rgba(0, 0, 0, 0.4);";
-    self.container.style =
-      "position: absolute; top: 50%; left: 50%; margin-left: -153px; margin-top: -225px; width: 307px; height: 450px; border-radius: 15px; z-index: 101; -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);";
+    self.backdrop.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; min-height: 450px; min-width: 307px; z-index: 100; background: rgba(0, 0, 0, 0.4);";
+    self.container.style.cssText = "position: absolute; top: 50%; left: 50%; margin-left: -153px; margin-top: -225px; width: 307px; height: 450px; border-radius: 15px; z-index: 101; -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);";
 
     iframe.src = self.url;
     iframe.id = "basiq-modal-frame";
     iframe.frameBorder = "0";
-    iframe.style = "width: 100%; height: 100%; border-radius: 15px;";
+    iframe.style.cssText = "width: 100%; height: 100%; border-radius: 15px;";
 
     backdrop.id = "basiq-modal-container-backdrop";
     container.id = "basiq-modal-container";
