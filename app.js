@@ -53,7 +53,7 @@ let Basiq = function (data) {
     params.push("upload=true");
   }
   if(data.institutionRegion) {
-    params.push("institutionRegion=" + data.institutionRegion);
+    params.push("institution_region=" + data.institutionRegion);
   }
 
   let host = data.blinkHost ? data.blinkHost : "//js.basiq.io/";
