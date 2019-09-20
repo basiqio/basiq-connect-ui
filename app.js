@@ -12,6 +12,7 @@
  * @param connectionId  connection ID
  * @param blinkHost     host of basiq blink (defaults to "//js.basiq.io")
  * @param pdfUpload     pdf upload feature flag
+ * @param institutionRegion show istituions from provided region; valid values are 'Australia', 'New Zealand'
  * @constructor
  */
 let Basiq = function (data) {
