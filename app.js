@@ -205,7 +205,7 @@ let Basiq = function (data) {
     self.backdrop = backdrop;
     self.container = container;
     self.backdrop.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; min-height: 450px; min-width: 307px; z-index: 100; background: rgba(0, 0, 0, 0.4);";
-    self.container.style.cssText = "position: absolute; top: 50%; left: 50%; margin-left: -153px; margin-top: -225px; width: 307px; height: 450px; border-radius: 15px; z-index: 101; -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);";
+    self.container.style.cssText = "position: absolute; top: 50%; left: 50%; margin-left: -153px; margin-top: -225px; width: 307px; min-height: 450px; max-height: 520px; height: 100%; border-radius: 15px; z-index: 101; -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50); box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);";
 
     iframe.src = self.url;
     iframe.id = "basiq-modal-frame";
