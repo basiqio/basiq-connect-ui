@@ -35,7 +35,16 @@ To instantiate the Basiq client object you need to have access_token and user_id
 
 #### Connect to bank account
 
-Create a new Basiq instance:
+Attach onclick function to an element:
+
+```js
+document.getElementById("connectYourAcc").onclick = function () {
+    // Initialization code goes here.
+    // Event listeners also goes here.
+};
+```
+
+Inside onlick function (initialization code), create a new Basiq instance:
 
 ```js
 var ui = new Basiq({
@@ -45,10 +54,15 @@ var ui = new Basiq({
 ```
 
 Now you are ready to display the web application. You can do that by invoking the ```render()``` method.
-The most common use case will be opening the modal window
+The most common use case will be opening the modal window. Complete code should look like this:
 
 ```js
 document.getElementById("connectYourAcc").onclick = function () {
+    var ui = new Basiq({
+        userId,
+        accessToken
+    });
+
     ui.render();
 };
 ```
