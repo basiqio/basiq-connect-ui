@@ -44,7 +44,7 @@ document.getElementById("connectYourAcc").onclick = function () {
 };
 ```
 
-Inside onlick function (initialization code), create a new Basiq instance:
+Inside onclick function (initialization code), create a new Basiq instance:
 
 ```js
 var ui = new Basiq({
