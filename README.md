@@ -1,4 +1,4 @@
-# THIS UI CONTROL WILL BE DEPRECATED IN JANUARY 2022
+# THIS UI CONTROL IS DEPRECATED!!
 ## Please refer to the new UI Control https://github.com/basiqio/basiq-connect-control
 
 # Basiq Connect UI
